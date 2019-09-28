@@ -4,7 +4,7 @@ defmodule TestReflector.MixProject do
   def project do
     [
       app: :test_reflector,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
