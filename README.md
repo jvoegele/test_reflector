@@ -87,6 +87,8 @@ In Elixir there are two more Rules:
     * whatever _term_ was stashed for that scope and function name
   ```
   defmodule ResourceReflector do
+    import TestReflector
+    require TestReflector
     @behaviour Somewhere.ResourceBehaviour
     #       scope,     function,             default-result
     reflect(:resource, :all,                 [])
