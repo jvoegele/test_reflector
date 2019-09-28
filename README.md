@@ -2,9 +2,6 @@
 
 ## Installation
 
-Soon (but not yet) it will be [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `test_reflector` to your list of dependencies in `mix.exs`:
-
 ```elixir
 def deps do
   [
@@ -23,20 +20,34 @@ TestReflector
   1. stub out return data that the dependent module-function should return?
 
 ## Context
-  We are writing Micro-Tests, aka Unit-Tests.
-  https://www.artima.com/weblogs/viewpost.jsp?thread=126923
-  Classic blog post by Mike Feathers and what makes unit different from Integration testing.   [A Set of Unit Testing Rules](https://www.artima.com/weblogs/viewpost.jsp?thread=126923)
-  I suggest that in Elixir we can call this `Module testing`.  And limit the test to one module at a time.
+  We are writing Unit Tests.
+  In Elixir we can think of this as `Module testing`.  Because we want to limit the test to one module.
+  Classic blog post by *Mike Feathers* and what makes unit different from Integration testing.   
+  [A Set of Unit Testing Rules](https://www.artima.com/weblogs/viewpost.jsp?thread=126923)
+
+  ##### A test is not a unit test if:
+
+  1.  It talks to the database
+  2.  It communicates across the network
+  3.  It touches the file system
+  4. It can't run at the same time as any of your other unit tests
+  5. You have to do special things to your environment (such as editing config files) to run it.
+
+In Elixir there are two more Rules:
+  6. It can't read the Syatem Time (subset of rule 5 above, but often forgotten)
+  7. It cannot involve the erlang Scheduler.  No multiple processes.
+
 
 ## Solution 
   Inject into the Code-Under-Test a **Reflector** with the same interface as the real depedency.
-  *  A **Reflector** is a kind of *Test Double* that has the same interface as  the dependency (sometimes using a @behaviour)
+  *  A **Reflector** is a kind of *Test Double* that has the same interface as the dependency (sometimes using a @behaviour)
   *  The interface function is stubbed by a default return value, and can be stashed with a customreturn value per test
   *  The **Reflector** sends a message back to the test-process when the interface function is called.
   *  The message sent back to the test-process contains the name of the called function and the arguments 
+  *  Do not pass the Reflector more than one Module deep. 
 
 ## Limitations
-  * Reflectors are limited for when the test and target code are in the same process.  This is actually good because it helps us keep the tests smaller and more focused.
+  * Reflectors are limited for when the test and target code are IN THE SAME PROCESS. 
 
 ---
 
@@ -82,5 +93,19 @@ TestReflector
     reflector(:resource, :delete,              :ok)
   end
   ```
+
+
+## Discussion
+
+### Why not use techniques and tools like [MOX](https://github.com/plataformatec/mox) ?
+
+See the **Mocks as locals** section in [Mocks and explicit contracts](http://blog.plataformatec.com.br/2015/10/mocks-and-explicit-contracts/ )
+
+"Although we have used the application configuration for solving the external API issue, sometimes it is easier to just pass the dependency as argument. Imagine this example in Elixir where some function may perform heavy work which you want to isolate in tests:"  -- José Valim
+
+José seems to say that Mox is good for large external interfaces.
+And points to **Mocks as Locals** as a way to do testing for simpler smaller cases.  These simpler cases are Unit tests.
+
+
 
 
