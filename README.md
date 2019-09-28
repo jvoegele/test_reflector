@@ -10,6 +10,8 @@ def deps do
 end
 ```
 
+* [TestReflector on Hex](https://hex.pm/packages/test_reflector)
+
 ## Pattern Name
 TestReflector
 
