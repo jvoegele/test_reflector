@@ -1,6 +1,6 @@
 defmodule TestReflector.Field do
   @moduledoc """
-  def_reflector_fld/3
+  reflect/3
   * the message reflected back depends on the arity when called
   *  **my_function()**  sends back **:name_of_function**
   *  **my_function(arg1)**  sends back **{:name_of_function, arg1}**
@@ -10,7 +10,7 @@ defmodule TestReflector.Field do
       * whatever _term_ was stashed for that scope and function name
   """
 
-  defmacro def_reflector_fld(scope, name, default) do
+  defmacro reflect(scope, name, default) do
     stash_fn_name = String.to_atom("stash_#{name}")
     var_name = String.to_atom("var_#{scope}_#{name}")
     message_atom = String.to_atom("#{name}")

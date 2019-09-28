@@ -14,13 +14,13 @@ end
 TestReflector
 
 ## Problem
-  In a TestCase how do we: 
-  1. assert that dependent module-functions were called by the Code-Under-Test?
+  In an isolated Test how do we: 
+  1. assert that dependent module-functions were called by the Subject-Under-Test?
   1. assert that the correct arguments were passed to the dependent module-functions?
   1. stub out return data that the dependent module-function should return?
 
 ## Context
-  We are writing Unit Tests.
+  We are writing isolated, pure, fast-running Unit Tests.
   In Elixir we can think of this as `Module testing`.  Because we want to limit the test to one module.
   Classic blog post by *Mike Feathers* and what makes unit different from Integration testing.   
   [A Set of Unit Testing Rules](https://www.artima.com/weblogs/viewpost.jsp?thread=126923)
@@ -48,7 +48,7 @@ In Elixir there are two more Rules:
   *  Do not pass the Reflector more than one Module deep. 
 
 ## Limitations
-  * Reflectors are limited for when the test and target code are IN THE SAME PROCESS. 
+  * Reflectors are limited for when the test and Subject-Under-Test are IN THE SAME PROCESS. 
 
 ---
 
@@ -86,12 +86,12 @@ In Elixir there are two more Rules:
   ```
   defmodule ResourceReflector do
     @behaviour Somewhere.ResourceBehaviour
-    #         scope,     function,             default-result
-    reflector(:resource, :all,                 [])
-    reflector(:resource, :get,                 {:ok, %{}})
-    reflector(:resource, :update,              {:ok, %{}})
-    reflector(:resource, :create,              {:ok, %{}})
-    reflector(:resource, :delete,              :ok)
+    #       scope,     function,             default-result
+    reflect(:resource, :all,                 [])
+    reflect(:resource, :get,                 {:ok, %{}})
+    reflect(:resource, :update,              {:ok, %{}})
+    reflect(:resource, :create,              {:ok, %{}})
+    reflect(:resource, :delete,              :ok)
   end
   ```
 

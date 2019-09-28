@@ -32,7 +32,7 @@ defmodule TestReflector.DemoTest do
 
     @behaviour MyRepoBehaviour
     #                 scope,      function,           default-result
-    def_reflector_fld(:something, :some_data_i_need, {:ok, "nothing"})
+    reflect(:something, :some_data_i_need, {:ok, "nothing"})
     # . . .
   end
 

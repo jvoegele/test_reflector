@@ -6,20 +6,20 @@ defmodule TestReflector.FieldTest do
   defmodule Module001Reflector do
     import Field
     require Field
-    def_reflector_fld(:module_01, :my_function, :ok)
+    reflect(:module_01, :my_function, :ok)
   end
 
   defmodule Module002Reflector do
     import Field
     require Field
-    def_reflector_fld(:module_02, :my_function, :ok)
+    reflect(:module_02, :my_function, :ok)
   end
 
   setup do
     %{data: "Some-Data", default: :ok}
   end
 
-  describe "def_reflector_fld/3" do
+  describe "reflect/3" do
     test "arity ZERO - my_function() - send reflected message" do
       Module001Reflector.my_function()
       assert_receive :my_function
@@ -40,12 +40,12 @@ defmodule TestReflector.FieldTest do
       assert_receive {:my_function, :arg1, :arg2, :arg3}
     end
 
-    test "def_reflector_fld - returns stash data", conn do
+    test "reflect - returns stash data", conn do
       Module001Reflector.stash_my_function(conn.data)
       assert conn.data == Module001Reflector.my_function()
     end
 
-    test "def_reflector_fld - default", conn do
+    test "reflect - default", conn do
       assert conn.default == Module001Reflector.my_function()
     end
 
