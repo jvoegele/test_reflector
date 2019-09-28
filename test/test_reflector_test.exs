@@ -1,17 +1,16 @@
-defmodule TestReflector.FieldTest do
+defmodule TestReflectorTest do
   @moduledoc false
   use ExUnit.Case
-  alias TestReflector.Field
 
   defmodule Module001Reflector do
-    import Field
-    require Field
+    import TestReflector
+    require TestReflector
     reflect(:module_01, :my_function, :ok)
   end
 
   defmodule Module002Reflector do
-    import Field
-    require Field
+    import TestReflector
+    require TestReflector
     reflect(:module_02, :my_function, :ok)
   end
 

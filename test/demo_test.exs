@@ -27,8 +27,8 @@ defmodule TestReflector.DemoTest do
   end
 
   defmodule MyRepoReflector do
-    import TestReflector.Field
-    require TestReflector.Field
+    import TestReflector
+    require TestReflector
 
     @behaviour MyRepoBehaviour
     #                 scope,      function,           default-result

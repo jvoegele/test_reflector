@@ -1,4 +1,4 @@
-defmodule TestReflector.Field do
+defmodule TestReflector do
   @moduledoc """
   reflect/3
   * the message reflected back depends on the arity when called
