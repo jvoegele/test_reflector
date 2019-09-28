@@ -5,7 +5,7 @@
 ```elixir
 def deps do
   [
-    {:test_reflector, "~> 0.1.1"}
+    {:test_reflector, "~> 0.1.4"}
   ]
 end
 ```
