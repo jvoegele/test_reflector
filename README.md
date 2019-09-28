@@ -34,7 +34,8 @@ TestReflector
   5. You have to do special things to your environment (such as editing config files) to run it.
 
 In Elixir there are two more Rules:
-  6. It can't read the Syatem Time (subset of rule 5 above, but often forgotten)
+
+  6. It can't read the System Time (subset of rule 5 above, but often forgotten)
   7. It cannot involve the erlang Scheduler.  No multiple processes.
 
 
