@@ -82,7 +82,7 @@ In Elixir there are two more Rules:
   end
   ```
 
-  ## Defining the ResourceReflector
+  ## Defining the DependentReflector
 
    provide only semantically meaningful parts
   * the message reflected back depends on the arity
@@ -92,7 +92,8 @@ In Elixir there are two more Rules:
   * the function return value is either 
     * the default defined in the macro call, or 
     * whatever _term_ was stashed for that scope and function name
-  ```
+  
+  ```elixir
   defmodule DependentReflector do
     import TestReflector
     require TestReflector
