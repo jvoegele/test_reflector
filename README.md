@@ -59,19 +59,26 @@ In Elixir there are two more Rules:
 
   See the real usage in: `TestReflector.DemoTest`
 
-  ```
-  @deps %{ needed: DependentReflector }
+  ```elixir
+  @dependent  DependentReflector 
 
   test "some test pseudo code for demo purposes" do
     # Given
-    resource = build(:resource)
     DependentReflector.stash_get({:ok, 42})
+    params = 123
     # When
-    result = TargetCode.a_function_that_calls_dependent_get(@params, @deps)
+    result = TargetCode.a_function_that_calls_dependent_get(params, @dependent)
     # Then
-    assert {:ok, asset} == result
-    assert asset.resource_id == resource.id
-    assert_receive {:get, _}
+    assert {:ok, 42} == result
+    assert_receive {:get, 123}
+  end
+  ```
+
+  ```elixir
+  defmodule TargetCode do
+    def a_function_that_calls_dependent_get(params, dependent) do
+      dependent.get(params)
+    end
   end
   ```
 
@@ -86,10 +93,11 @@ In Elixir there are two more Rules:
     * the default defined in the macro call, or 
     * whatever _term_ was stashed for that scope and function name
   ```
-  defmodule ResourceReflector do
+  defmodule DependentReflector do
     import TestReflector
     require TestReflector
-    @behaviour Somewhere.ResourceBehaviour
+    # optional behaviour
+    @behaviour Somewhere.DependentBehaviour
     #       scope,     function,             default-result
     reflect(:resource, :all,                 [])
     reflect(:resource, :get,                 {:ok, %{}})
