@@ -10,6 +10,7 @@ defmodule TestReflector.DemoTest do
   defmodule RealMyRepoModule do
     @behaviour MyRepoBehaviour
 
+    @impl MyRepoBehaviour
     def some_data_i_need() do
       # does slow or side-effect stuff here in the real world
       # so we don't what this to run in our micro-tests (aka unit-tests)
