@@ -2,11 +2,13 @@ defmodule TestReflector.DemoTest do
   @moduledoc false
   use ExUnit.Case
 
+  # define MyRepoBehaviour ----------------------------------------------------------------------
   defmodule MyRepoBehaviour do
     @moduledoc false
     @callback some_data_i_need() :: {:ok, binary} | {:error, binary}
   end
 
+  # define RealMyRepoModule ----------------------------------------------------------------------
   defmodule RealMyRepoModule do
     @behaviour MyRepoBehaviour
 
@@ -27,6 +29,7 @@ defmodule TestReflector.DemoTest do
     end
   end
 
+  # define MyRepoReflector ----------------------------------------------------------------------
   defmodule MyRepoReflector do
     import TestReflector
     require TestReflector
